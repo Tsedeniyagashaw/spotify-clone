@@ -1,14 +1,18 @@
 import React from 'react'
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+// import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+
+
+  const navigate = useNavigate();
   return (
     <>  
     <div className='w-full flex justify-between text-center font-semibold'>
       <div className='flex items-center gap-2'>
-        <MdOutlineKeyboardArrowLeft className='bg-black p-2 rounded-2xl cursor-pointer' size={35}/>
-        <MdOutlineKeyboardArrowRight className='bg-black p-2 rounded-2xl cursor-pointer' size={35}/>
+        <MdOutlineKeyboardArrowLeft onClick={()=>navigate(-1)} className='bg-black p-2 rounded-2xl cursor-pointer' size={35}/>
+        <MdOutlineKeyboardArrowRight onClick={()=>navigate(+1)} className='bg-black p-2 rounded-2xl cursor-pointer' size={35}/>
 
       </div>
 
