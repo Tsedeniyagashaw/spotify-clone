@@ -1,27 +1,28 @@
-import React from 'react'
-import { songsData } from '../assets/assets'
+import React, { useContext } from 'react'
+import { assets } from '../assets/assets'
 import { PiQueue, PiShuffle } from 'react-icons/pi'
 import { ImNext2, ImPrevious2 } from 'react-icons/im'
-import { FaMicrophone, FaPlay } from 'react-icons/fa'
+import { FaMicrophone, FaPause, FaPlay } from 'react-icons/fa'
 import { RxLoop } from 'react-icons/rx'
 import { AiTwotonePlaySquare } from 'react-icons/ai'
 import { MdOutlineSpeaker } from 'react-icons/md'
 import { IoVolumeMediumSharp } from 'react-icons/io5'
 import { CgMiniPlayer } from 'react-icons/cg'
 import { CiZoomIn } from 'react-icons/ci'
+import { PlayerContext } from '../context/PlayerContext'
 
 const Player = () => {
 
-
+ const {track, seekBar ,seekBg ,playerStatus , play, pause, time} = useContext(PlayerContext)
 
   
   return (
     <div className='h-[10%] bg-black flex justify-between items-center text-white px-4'>
        <div className='hidden lg:flex items-center gap-4 '>
-        <img className='w-12' src={songsData[0].image} />
+        <img className='w-12' src={track.image} />
         <div>
-            <p>{songsData[0].name}</p>
-            <p>{songsData[0].desc.slice(0,12)}</p>
+            <p>{track.name}</p>
+            <p>{track.desc.slice(0,12)}</p>
         </div>
 </div>
 
@@ -29,15 +30,20 @@ const Player = () => {
   <div className='flex gap-4'>
     <PiShuffle className='cursor-pointer' size={25}/>
     <ImPrevious2  className='cursor-pointer' size={25}/>
-    <FaPlay  className='cursor-pointer' size={25}/>
+
+    {playerStatus ? <FaPause onClick={pause}  className='cursor-pointer' size={25}/>
+    : <FaPlay onClick={play}  className='cursor-pointer' size={25}/>
+    
+    }
+   
     <ImNext2  className='cursor-pointer' size={25}/>
     <RxLoop  className='cursor-pointer' size={25}/>
   </div>
 
   <div className='flex items-center gap-5'>
-    <p>1:03</p>
-    <div className='w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer'>
-      <hr className='h-1 border-none w-25 bg-green-800 rounded-full'/>
+    <p>{time.currentTime.minute}</p>
+    <div ref={seekBg} className='w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer'>
+      <hr ref={seekBar} className='h-1 border-none w-0 bg-green-800 rounded-full'/>
     </div>
     <p>3:50</p>
 
