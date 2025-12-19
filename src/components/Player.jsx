@@ -13,7 +13,7 @@ import { PlayerContext } from '../context/PlayerContext'
 
 const Player = () => {
 
- const {track, seekBar ,seekBg ,playerStatus , play, pause, time} = useContext(PlayerContext)
+ const {track, seekBar ,seekBg ,playerStatus , play, pause, time, previous, next , seekSong } = useContext(PlayerContext)
 
   
   return (
@@ -29,23 +29,23 @@ const Player = () => {
 <div className='flex flex-col items-center gap-1 m-auto'>
   <div className='flex gap-4'>
     <PiShuffle className='cursor-pointer' size={25}/>
-    <ImPrevious2  className='cursor-pointer' size={25}/>
+    <ImPrevious2 onClick={previous}  className='cursor-pointer' size={25}/>
 
     {playerStatus ? <FaPause onClick={pause}  className='cursor-pointer' size={25}/>
     : <FaPlay onClick={play}  className='cursor-pointer' size={25}/>
     
     }
    
-    <ImNext2  className='cursor-pointer' size={25}/>
+    <ImNext2 onClick={next}  className='cursor-pointer' size={25}/>
     <RxLoop  className='cursor-pointer' size={25}/>
   </div>
 
   <div className='flex items-center gap-5'>
-    <p>{time.currentTime.minute}</p>
-    <div ref={seekBg} className='w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer'>
+    <p>{time.currentTime.minute}:{time.currentTime.second}</p>
+    <div ref={seekBg} onClick={seekSong} className='w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer'>
       <hr ref={seekBar} className='h-1 border-none w-0 bg-green-800 rounded-full'/>
     </div>
-    <p>3:50</p>
+    <p>{time.totalTime.minute}:{time.totalTime.second}</p>
 
   </div>
 </div>
@@ -70,3 +70,5 @@ const Player = () => {
 }
 
 export default Player
+
+
